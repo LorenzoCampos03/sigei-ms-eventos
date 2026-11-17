@@ -1,4 +1,4 @@
-pipeline {
+﻿pipeline {
     agent any
 
     tools {
@@ -37,7 +37,7 @@ pipeline {
                         mvn clean verify sonar:sonar \
                         -Dsonar.organization=as232s5-prs1 \
                         -Dsonar.projectKey=as232s5-prs1_vg-ms-event \
-                        -Dsonar.token=ecc2436ccb9ba6697395d1ae2ddbaa850cc750ed
+                        -Dsonar.token=${SONAR_TOKEN}
                     """
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
                 tokenCredentialId: "${SLACK_CRED_ID}",
                 botUser: false,
                 color: 'good',
-                message: "🎉 BUILD EXITOSO - ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                message: "ðŸŽ‰ BUILD EXITOSO - ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
         failure {
@@ -63,7 +63,7 @@ pipeline {
                 tokenCredentialId: "${SLACK_CRED_ID}",
                 botUser: false,
                 color: 'danger',
-                message: "🚨 BUILD FALLIDO - ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                message: "ðŸš¨ BUILD FALLIDO - ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
         unstable {
@@ -72,8 +72,9 @@ pipeline {
                 tokenCredentialId: "${SLACK_CRED_ID}",
                 botUser: false,
                 color: 'warning',
-                message: "⚠️ BUILD INESTABLE - ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                message: "âš ï¸ BUILD INESTABLE - ${env.JOB_NAME} #${env.BUILD_NUMBER}"
             )
         }
     }
 }
+
